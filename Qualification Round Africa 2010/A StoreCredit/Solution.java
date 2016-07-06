@@ -46,10 +46,6 @@ public class Solution{
   }
 
   public static boolean verifi(int C, int X, int Y){
-  	if((X + Y) == C){
-  	    return true;
-  	}else{
-  	    return false;
-  	}
+    return ((X + Y) == C)?true:false;
   }
 }
