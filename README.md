@@ -1,2 +1,2 @@
 # codejam
-Codejam exercises
+My solutions Google Code Jam
