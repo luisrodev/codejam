@@ -8,153 +8,82 @@ public class Solution{
     int N; //Numer of cases.
     int L; //Number of letters.
     int W; //Number of words.
-    //String aline;
 
     N = Integer.parseInt(scan.nextLine());
-
 
     //Loop for lines
     for(int i = 1; i <= N; i++){
 
-      String someline = scan.nextLine();
+      String currentLine = scan.nextLine();
 
-      int longchar = getLengthALine(someline);
+      int longLine = getLengthALine(currentLine);
 
-      //System.out.println("Valor de la linea: " + i + "  es: " + someline + " longitud: " + longchar );
-      //System.out.println("Estas en la linea: " + i);
-      String palabra = "";
-      String[] palabras;
+      String[] words;
 
-      L = obtTotLetters(longchar, someline);
-      W = obtTotWords(longchar, someline);
-      /*
-      for(int e = 0; e < longchar; e++){
+      L = getTotLetters(longLine, currentLine);
+      W = getTotWords(longLine, currentLine);
 
-        if(getActualChar(e, someline) != ' '){
-          L++;
-          palabra += Character.toString(getActualChar(e, someline));
-        }else{
-          W++;
-          //palabra += Character.toString(getActualChar(e, someline));
-        }
+      words = new String[W];
 
-        System.out.println("Caracter: " + getActualChar(e, someline) + " de la posicion: " + (e + 1));
+      words = getCompletsWords(longLine, currentLine, W);
 
-      }
+      String solved = solve(words, W);
 
-      */
-
-      //System.out.println("Tot letters: " + L + " tot words: " + W);
-      palabras = new String[W];
-      int tam = palabras.length;
-
-      //System.out.println("Length arREGLO: " + tam);
-
-      palabras = getCompletsWords(longchar, someline, W);
-
-      /*
-      for(int imp = 0; imp < tam; imp++){
-        System.out.println("valor del campo: " + imp + " es: " + palabras[imp]);
-      }
-      */
-
-      //solve(palabras, W);
-      String terminado = solve(palabras, W);
-
-      System.out.println("Case #" + i + ": " + terminado);
-
-      /*
-      for(int p = 0; p < W; p++){
-        txts[p] = palabra;
-      }
-
-      System.out.println("Palabra: " + palabra);
-
-      */
-
-      //this is a workzone
-      /*
-      for(int cont = 0; cont < W; cont++){
-        //System.out.println("palabra num: " + cont);
-        System.out.println("Palabra num: " + cont + " es: " + palabras[cont]);
-      }
-      */
-
-      //System.out.println("Numero de letras: " + L + " numero de palabras: " + W);
+      System.out.println("Case #" + i + ": " + solved);
     }
-
   }
 
-  private static String solve(String[] palabras, int words){
-    String algo = "";
+  private static String solve(String[] words, int totWords){
+    String solved = "";
 
-    for(int i = (words - 1); i >= 0; i--){
-      //System.out.println("Solve word: " + i);
+    for(int i = (totWords - 1); i >= 0; i--){
       if(i > 0){
-        algo += palabras[i] + " ";
+        solved += words[i] + " ";
       }else{
-        algo += palabras[i];
-      }
-
-    }
-    return algo;
-  }
-
-  private static String[] getCompletsWords(int longChar, String line, int totWords){
-    String[] palabras = new String[totWords];
-
-    //System.out.println("Arreglo interno: " + totWords);
-
-    String palabra = "";
-
-    int contPal = 0;
-
-    for(int i = 0; i < longChar; i++){
-      /*
-      if(getActualChar(i, line) != ' ' && i <= longChar){
-        palabra += Character.toString(getActualChar(i, line));
-      }else{
-        //lo que pasa cuando encuentra un espacio en el caracter actual.
-        //palabra += Character.toString(getActualChar(i, line));
-        System.out.println("contador de palabras: " + contPal);
-
-        palabras[contPal] = palabra;
-        palabra = "";
-        contPal++;
-      }
-      */
-      //if(getActualChar(i, line) == ' ' || (i + 1) == (longChar)){
-      if(getActualChar(i, line) == ' ' || (i + 1)  == (longChar)){
-        palabra += Character.toString(getActualChar(i, line));
-        //System.out.println("contador de palabras: " + contPal);
-
-        //palabra.trim();
-
-        palabras[contPal] = palabra.trim();
-        palabra = "";
-        contPal++;
-      }else{
-        palabra += Character.toString(getActualChar(i, line));
+        solved += words[i];
       }
     }
 
-    return palabras;
+    return solved;
   }
 
-  private static int obtTotWords(int longChar, String line){
+  private static String[] getCompletsWords(int longLine, String line, int totWords){
+    String[] words = new String[totWords];
+
+    String word = "";
+
+    int contWord = 0;
+
+    for(int i = 0; i < longLine; i++){
+      if(getCurrentChar(i, line) == ' ' || (i + 1)  == (longLine)){
+        word += Character.toString(getCurrentChar(i, line));
+        words[contWord] = word.trim();
+        word = "";
+        contWord++;
+      }else{
+        word += Character.toString(getCurrentChar(i, line));
+      }
+    }
+
+    return words;
+  }
+
+  private static int getTotWords(int longLine, String line){
     int words = 1;
-    for(int i = 0; i < longChar; i++){
-      if(getActualChar(i, line) == ' '){
+
+    for(int i = 0; i < longLine; i++){
+      if(getCurrentChar(i, line) == ' '){
         words++;
       }
     }
 
     return words;
   }
-  private static int obtTotLetters(int longChar, String line){
+  private static int getTotLetters(int longLine, String line){
     int letters = 0;
-    for(int i = 0; i < longChar; i++){
-      if(getActualChar(i, line) != ' '){
+    
+    for(int i = 0; i < longLine; i++){
+      if(getCurrentChar(i, line) != ' '){
         letters++;
       }
     }
@@ -162,18 +91,18 @@ public class Solution{
     return letters;
   }
 
-  private static char getActualChar(int position, String theLine){
-    char actualChar;
+  private static char getCurrentChar(int position, String theLine){
+    char currentChar;
 
     char[] chartemp = theLine.toCharArray();
 
-    actualChar = chartemp[position];
+    currentChar = chartemp[position];
 
-    return actualChar;
+    return currentChar;
   }
 
-  private static int getLengthALine(String someLine){
-    char[] chartemp = someLine.toCharArray();
+  private static int getLengthALine(String currentLine){
+    char[] chartemp = currentLine.toCharArray();
 
     return chartemp.length;
   }
