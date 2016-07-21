@@ -13,4 +13,4 @@ My solutions [Google Code Jam](https://code.google.com/codejam)
 
 
 
-Luis Armando Rubio.
+Luis A. Rubio.
