@@ -12,8 +12,8 @@ public class Solution{
 
     for(int i = 1; i <= N; i++){//Principal loop
         String desired_message = scan.nextLine();//Desired message
-        String lol = solve(desired_message, desired_message.length());
-        System.out.println("Case #" + i + ": " + lol);
+        String solvedLine = solve(desired_message, desired_message.length());
+        System.out.println("Case #" + i + ": " + solvedLine);
     }
 
   }
